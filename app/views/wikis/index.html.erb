@@ -1,0 +1,10 @@
+<h1>Wikis</h1>
+<% @wikis.each do |wiki| %>
+  <div class="media">
+    <div class="media-body">
+      <div class="media-heading">
+        <%= link_to wiki.title, wiki %>
+      </div>
+    </div>
+  </div>
+<% end %>
