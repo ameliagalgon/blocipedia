@@ -16,3 +16,9 @@
 
  @import "bootstrap-sprockets";
  @import "bootstrap";
+ @import "fonts";
+ $maison_mono: 'Maison';
+
+ body{
+   font-family: $maison_mono, sans-serif;
+ }
