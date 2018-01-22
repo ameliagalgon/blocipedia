@@ -20,5 +20,22 @@
  $maison_mono: 'Maison';
 
  body{
-   font-family: $maison_mono, sans-serif;
+   font-family: $maison_mono, 'Courier';
+   background-color: #e2fffc;
+ }
+
+ .container{
+   margin-top: 20px;
+   border-radius: 5px;
+   padding: 20px;
+   /*background-color: #fff;*/
+ }
+
+ .nav{
+   li a:hover{
+     background-color: #fff;
+   }
+   .pull-right{
+     font-size: 0.8em;
+   }
  }
