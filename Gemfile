@@ -7,6 +7,7 @@ gem 'rails', '~> 5.1.4'
 group :production do
   gem 'pg', '~> 0.2'
   gem 'rails_12factor'
+  gem 'faker'
 end
 
 # Use Puma as the app server
@@ -32,6 +33,8 @@ gem 'figaro'
 gem 'devise'
 
 gem 'webmock'
+
+gem 'pundit'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

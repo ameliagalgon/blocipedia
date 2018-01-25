@@ -7,10 +7,12 @@
     <%= f.label :body %>
     <%= f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter wiki body" %>
   </div>
-  <div class="form-check">
-    <%= f.label :private %>
-    <%= f.check_box :private, class: "form-check-input" %>
-  </div>
+  <% if current_user.premium? && wiki.id.nil? || wiki.user_id == current_user.id %>
+    <div class="form-check">
+      <%= f.label :private %>
+      <%= f.check_box :private, class: "form-check-input" %>
+    </div>
+  <% end %>
   <div class="form-group">
     <%= f.submit "Save", class: 'btn btn-success' %>
   </div>
