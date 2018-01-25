@@ -4,3 +4,24 @@
   font-weight: normal;
   font-style: normal;
 }
+
+@font-face {
+  font-family: 'Maison';
+  src: font-url("MaisonMonoMG-Light.otf") unquote("format('opentype')");
+  font-weight: lighter;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Maison';
+  src: font-url("MaisonMonoMG-Bold.otf") unquote("format('opentype')");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Maison';
+  src: font-url("MaisonMonoMG-Italic.otf") unquote("formate('opentype')");
+  font-weight: normal;
+  font-style: italic;
+}
