@@ -2,12 +2,11 @@ class User < ApplicationRecord
   has_many :wikis
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create }
 
-  before_save {self.role ||= :standard }
 
   after_initialize :init
 
   def init
-    #self.role ||= :standard
+    self.role ||= :standard
   end
 
   # Include default devise modules. Others available are:
