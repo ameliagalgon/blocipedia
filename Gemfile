@@ -7,6 +7,7 @@ gem 'rails', '~> 5.1.4'
 group :production do
   gem 'pg', '~> 0.2'
   gem 'rails_12factor'
+  gem 'faker'
 end
 
 # Use Puma as the app server
