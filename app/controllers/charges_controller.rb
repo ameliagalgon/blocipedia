@@ -6,9 +6,11 @@ class ChargesController < ApplicationController
       card: params[:stripeToken]
     )
 
+    amount = Amount.instance
+
     charge = Stripe::Charge.create(
       customer: customer.id,
-      amount: Amount.default,
+      amount: amount.default,
       description: "Blocipedia Membership - #{current_user.email}",
       currency: 'usd'
     )
@@ -22,7 +24,7 @@ class ChargesController < ApplicationController
   end
 
   def new
-    amount = Amount.new
+    amount = Amount.instance
     @stripe_btn_data = {
       key: "#{Rails.configuration.stripe[:publishable_key]}",
       description: "Blocipedia Membership - #{current_user.email}",
