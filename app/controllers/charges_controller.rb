@@ -18,6 +18,11 @@ class ChargesController < ApplicationController
     flash[:notice] = "Thank you for your payment, #{current_user.email}!"
     redirect_to root_path
 
+    if current_user.standard?
+      current_user.premium!
+      puts current_user.role
+    end
+
   rescue Stripe::CardError => e
     flash[:alert] = e.message
     redirect_to new_charge_path
