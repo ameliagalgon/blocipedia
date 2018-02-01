@@ -1,6 +1,8 @@
 class ChargesController < ApplicationController
 
   def create
+    customers = Stripe::Customer.all
+
     customer = Stripe::Customer.create(
       email: current_user.email,
       card: params[:stripeToken]
@@ -15,13 +17,21 @@ class ChargesController < ApplicationController
       currency: 'usd'
     )
 
-    flash[:notice] = "Thank you for your payment, #{current_user.email}!"
+    flash[:notice] = "Thank you for your payment, #{current_user.email}! You have 7 days to cancel your membership."
     redirect_to root_path
+
 
     if current_user.standard?
       current_user.premium!
       puts current_user.role
     end
+
+    Charge.create!(
+      user_id: current_user.id,
+      charge_id: charge.id,
+      amount: amount.default,
+      currency: 'usd'
+    )
 
   rescue Stripe::CardError => e
     flash[:alert] = e.message

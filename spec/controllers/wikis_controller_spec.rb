@@ -2,6 +2,22 @@ require 'rails_helper'
 
 RSpec.describe WikisController, type: :controller do
 
+  before (:each) do
+    @user = User.create!({
+      :email => 'user@test.com',
+      :password => 'please',
+      :role => 'standard'
+      })
+    sign_in @user
+
+    @wiki = Wiki.create!({
+      :title => 'Test wiki',
+      :body => 'Test body',
+      :private => false,
+      :user => @user
+      })
+  end
+
   describe "GET #index" do
     it "returns http success" do
       get :index
@@ -11,7 +27,7 @@ RSpec.describe WikisController, type: :controller do
 
   describe "GET #show" do
     it "returns http success" do
-      get :show
+      get :show, :params => {id: @wiki.id}
       expect(response).to have_http_status(:success)
     end
   end
@@ -25,7 +41,7 @@ RSpec.describe WikisController, type: :controller do
 
   describe "GET #edit" do
     it "returns http success" do
-      get :edit
+      get :edit, :params => {id: @wiki.id}
       expect(response).to have_http_status(:success)
     end
   end
