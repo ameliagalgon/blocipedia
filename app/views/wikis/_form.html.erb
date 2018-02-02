@@ -7,10 +7,11 @@
     <%= f.label :body %>
     <%= f.text_area :body, rows: 8, class: 'form-control', placeholder: "Enter wiki body" %>
   </div>
-  <% if current_user.premium? && wiki.id.nil? || wiki.user_id == current_user.id %>
+  <% if current_user.premium? && (wiki.id.nil? || wiki.user_id == current_user.id) || current_user.admin? %>
     <div class="form-check">
-      <%= f.label :private %>
-      <%= f.check_box :private, class: "form-check-input" %>
+      <%= f.label :private, class: 'checkbox' do %>
+        <%= f.check_box :private %> Private wiki
+      <% end %>
     </div>
   <% end %>
   <div class="form-group">

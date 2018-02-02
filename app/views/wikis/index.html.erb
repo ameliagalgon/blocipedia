@@ -8,12 +8,14 @@
 </div>
 <div class="col-md-8">
   <% @wikis.each do |wiki| %>
-    <div class="media">
-      <div class="media-body">
-        <div class="media-heading">
-          <%= link_to wiki.title, wiki %>
+    <% if wiki.private == false || wiki.user_id == current_user.id %>
+      <div class="media">
+        <div class="media-body">
+          <div class="media-heading">
+            <%= link_to wiki.title, wiki %>
+          </div>
         </div>
       </div>
-    </div>
+    <% end %>
   <% end %>
 </div>
