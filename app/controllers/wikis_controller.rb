@@ -1,3 +1,4 @@
+#require 'redcarpet'
 class WikisController < ApplicationController
   def index
     @wikis = Wiki.all
@@ -5,6 +6,8 @@ class WikisController < ApplicationController
 
   def show
     @wiki = Wiki.find(params[:id])
+    renderer = Redcarpet::Render::HTML.new(hard_wrap: true)
+    @markdown = Redcarpet::Markdown.new(renderer)
   end
 
   def new
@@ -29,6 +32,8 @@ class WikisController < ApplicationController
 
   def edit
     @wiki = Wiki.find(params[:id])
+    renderer = Redcarpet::Render::HTML.new(hard_wrap: true)
+    @markdown = Redcarpet::Markdown.new(renderer)
   end
 
   def update

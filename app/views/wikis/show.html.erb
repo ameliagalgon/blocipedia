@@ -2,7 +2,7 @@
 <h1><%= @wiki.title %></h1>
 <p>Last edited <%= @wiki.updated_at.strftime("%B %d %Y at %H:%M:%S") %></p>
 <div class="col-md-8">
-  <p><%= @wiki.body %></p>
+  <%= @markdown.render( @wiki.body ).html_safe %>
 </div>
 <div class="col-md-4">
   <% if policy(@wiki).update? %>
