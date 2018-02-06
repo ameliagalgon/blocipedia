@@ -1,2 +1,9 @@
-<p>Current collaborators</p>
-<%= @wiki.collaborators %>
+<!-- add collaborators -->
+<% if wiki.private? %>
+  <div class="form-group">
+    <%= f.label :collaborators %><br>
+    <% for user in users %>
+      <%= f.check_box :collaborators, {:multiple => true , :checked => wiki.collaborators.exists?(user_id: user.id)},  user.id, nil %> <%= user.email %> <br>
+    <% end %>
+  </div>
+<% end %>

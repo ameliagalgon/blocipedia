@@ -12,6 +12,7 @@ class WikisController < ApplicationController
 
   def new
     @wiki = Wiki.new
+    @users = User.all
   end
 
   def create
@@ -37,19 +38,30 @@ class WikisController < ApplicationController
 
     #for collaborators
     @users = User.all
-
   end
 
   def update
     @wiki = Wiki.find(params[:id])
     @wiki.title = params[:wiki][:title]
     @wiki.body = params[:wiki][:body]
-    @wiki.private = params[:wiki][:private]
+    if params[:wiki][:private] == nil
+      @wiki.private = @wiki.private
+    else
+      @wiki.private = params[:wiki][:private]
+    end
     @wiki.user = @wiki.user
     #binding.pry
-    params[:wiki][:collaborators].each do |id|
-      c = Collaborator.new(user_id: id, wiki_id: @wiki.id)
-      c.save
+    if !params[:wiki][:collaborators].nil?
+      params[:wiki][:collaborators].each do |id|
+        c = Collaborator.new(user_id: id, wiki_id: @wiki.id)
+        c.save
+      end
+    else
+      Collaborator.all.each do |c|
+        if c.wiki_id == @wiki.id
+          c.destroy
+        end
+      end
     end
 
     if @wiki.save
