@@ -1,7 +1,7 @@
 #require 'redcarpet'
 class WikisController < ApplicationController
   def index
-    @wikis = Wiki.all
+    @wikis = policy_scope(Wiki)
   end
 
   def show
@@ -34,6 +34,10 @@ class WikisController < ApplicationController
     @wiki = Wiki.find(params[:id])
     renderer = Redcarpet::Render::HTML.new(hard_wrap: true)
     @markdown = Redcarpet::Markdown.new(renderer)
+
+    #for collaborators
+    @users = User.all
+
   end
 
   def update
@@ -42,6 +46,11 @@ class WikisController < ApplicationController
     @wiki.body = params[:wiki][:body]
     @wiki.private = params[:wiki][:private]
     @wiki.user = @wiki.user
+    #binding.pry
+    params[:wiki][:collaborators].each do |id|
+      c = Collaborator.new(user_id: id, wiki_id: @wiki.id)
+      c.save
+    end
 
     if @wiki.save
       flash[:notice] = "Your wiki was updated"
