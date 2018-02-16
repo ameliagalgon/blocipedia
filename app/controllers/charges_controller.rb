@@ -48,23 +48,23 @@ class ChargesController < ApplicationController
   end
 
   def destroy
-    @wikis = Wiki.where(user_id: current_user.id)
-    @charge = Charge.where(user_id: current_user.id).first
-    if @charge.created_at + 7.days < Time.now
+    wikis = Wiki.where(user_id: current_user.id)
+    charge = Charge.where(user_id: current_user.id).first
+    if charge.created_at + 7.days < Time.now
       flash[:alert] = "You can no longer cancel your membership"
       redirect_to root_path and return
     end
     #create a refund object
     re = Stripe::Refund.create(
-      charge: @charge.charge_id
+      charge: charge.charge_id
     )
     #remove change from applications database
-    @charge.destroy
+    charge.destroy
     #change role of current user
     current_user.standard!
 
     #make all the user's wiki's public
-    @wikis.each do |wiki|
+    wikis.each do |wiki|
       wiki.private = false
       wiki.save
     end

@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   has_many :wikis
-  has_many :charges
+  has_one :charge
   has_many :collaborators
-  
+
   validates :email, format: { with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i, on: :create }
 
 
